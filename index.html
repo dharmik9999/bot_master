@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bot Control</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    .container {
+      width: 300px;
+      margin: auto;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Bot Control</h1>
+    <input type="text" id="server-ip" placeholder="Enter server IP">
+    <button onclick="joinBot()">Join Bot</button>
+    <button onclick="leaveBot()">Leave Bot</button>
+  </div>
+
+  <script>
+    function joinBot() {
+      const ip = document.getElementById('server-ip').value;
+      if (ip) {
+        fetch(`/join?ip=${ip}`, { method: 'GET' })
+          .then(response => response.text())
+          .then(data => {
+            alert(data);
+          })
+          .catch(error => console.error('Error:', error));
+      } else {
+        alert('Please enter an IP address.');
+      }
+    }
+
+    function leaveBot() {
+      fetch(`/leave`, { method: 'GET' })
+        .then(response => response.text())
+        .then(data => {
+          alert(data);
+        })
+        .catch(error => console.error('Error:', error));
+    }
+  </script>
+
+</body>
+</html>
